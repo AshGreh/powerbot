@@ -153,7 +153,43 @@ public class Inventory extends ItemQuery<Item> {
 	}
 	
 	/**
-	 * Finds the centerPoint of the inventory's index
+	 * Converts an index to it's positional representation.
+	 * Example, item at index 0 is returned as (0,0) or 7 as (1,2).
+	 * @param index 0-(Constants.INVENTORY_SIZE-1), index of inventory
+	 * @return position representation of the index
+	 * @throws IndexOutOfBoundsException if index is below 0 or above (Constants.INVENTORY_SIZE-1)
+	 */
+	public Point indexPosition(int index) {
+		if(index < 0 || index > Constants.INVENTORY_SIZE - 1){
+			throw new IndexOutOfBoundsException();
+		}
+		int xFactor = index % 4;
+		int yFactor = Math.floorDiv(index, 4);
+		return new Point(xFactor, yFactor);
+	}
+	
+	/**
+	 * Gives center for a position (x,y).
+	 * Example, item at index 0 is referenced by (0,0) or 7 by (1,2).
+	 *
+	 * @param point the position to calculate for.
+	 * @return centre point of the specified point
+	 * @throws IndexOutOfBoundsException if x is not between 0 to 3 or y is not between 0 to 6
+	 */
+	public Point centerPoint(Point point) {
+		if(point.x < 0 || point.x > 3 || point.y < 0 || point.y > 6){
+			throw new IndexOutOfBoundsException();
+		}
+		//DIFFERENCE BETWEEN CENTER POINTS
+		int xFactor = ((point.x)*Constants.INVENTORY_ITEM_X_DIFFERENCE)+18;
+		int yFactor = ((point.y)*Constants.INVENTORY_ITEM_Y_DIFFERENCE)+16;
+		//INVENTORY WIDGET POSITION
+		Point inventoryBase = ctx.widgets.component(Constants.INVENTORY_WIDGET, 0).screenPoint();
+		return new Point(inventoryBase.x+xFactor, inventoryBase.y+yFactor);
+	}
+	
+	/**
+	 * Finds the center point of the inventory's index
 	 * @param index 0-(Constants.INVENTORY_SIZE-1), index of inventory
 	 * @return centerPoint of the index param
 	 * @throws IndexOutOfBoundsException if index is below 0 or above (Constants.INVENTORY_SIZE-1)
@@ -162,11 +198,7 @@ public class Inventory extends ItemQuery<Item> {
 		if(index < 0 || index > Constants.INVENTORY_SIZE - 1){
 			throw new IndexOutOfBoundsException();
 		}
-		
-		final Point base = component().screenPoint();
-		final int x = base.x - 3 + (index % 4) * WIDTH;
-		final int y = base.y - 2 + (index / 4) * HEIGHT;
-		return new Point(x + WIDTH / 2, y + HEIGHT / 2);
+		return centerPoint(indexPosition(index));
 	}
 	
 	/**
@@ -176,15 +208,9 @@ public class Inventory extends ItemQuery<Item> {
 	 * @throws IndexOutOfBoundsException if index is below 0 or above (Constants.INVENTORY_SIZE-1)
 	 */
 	public Rectangle boundingRect(int index){
-		if(index < 0 || index > Constants.INVENTORY_SIZE-1){
-			throw new IndexOutOfBoundsException();
-		}
-		
-		final Point base = component().screenPoint();
-		final int x = base.x - 3 + (index % 4) * WIDTH;
-		final int y = base.y - 2 + (index / 4) * HEIGHT;
-		
-		return new Rectangle(x, y, WIDTH, HEIGHT);
+		final int xFactor = Constants.ITEM_WIDTH/2, yFactor = Constants.ITEM_HEIGHT/2;
+		Point centerPoint = indexCenterPoint(index);
+		return new Rectangle(centerPoint.x-xFactor, centerPoint.y-yFactor, Constants.ITEM_WIDTH, Constants.ITEM_HEIGHT);
 	}
 	
 	/**
