@@ -60,6 +60,8 @@ public final class Constants {
 	public static final int LOGOUT_BUTTON_COMPONENT = 12;
 
 	public static final int INVENTORY_WIDGET = 149;
+	public static final int INVENTORY_ITEM_WIDTH = 42;
+	public static final int INVENTORY_ITEM_HEIGHT = 36;
 	public static final int INVENTORY_ITEMS = 0;
 	public static final int INVENTORY_SIZE = 28;
 	public static final int INVENTORY_BANK_WIDGET = 15;
