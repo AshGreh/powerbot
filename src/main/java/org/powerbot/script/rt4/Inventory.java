@@ -189,6 +189,19 @@ public class Inventory extends ItemQuery<Item> {
 	}
 	
 	/**
+	 * Gives center for a position (x,y).
+	 * Example, item at index 0 is referenced by (0,0) or 7 by (1,2).
+	 *
+	 * @param x the x position for the inventory item. (0-3)
+	 * @param y the y position for the inventory item (0-6)
+	 * @return centre point of the specified point
+	 * @throws IndexOutOfBoundsException if x is not between 0 to 3 or y is not between 0 to 6
+	 */
+	public Point centerPoint(int x, int y) {
+		return centerPoint(new Point(x, y));
+	}
+	
+	/**
 	 * Finds the center point of the inventory's index
 	 * @param index 0-(Constants.INVENTORY_SIZE-1), index of inventory
 	 * @return centerPoint of the index param
