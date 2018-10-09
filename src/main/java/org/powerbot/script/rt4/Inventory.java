@@ -85,11 +85,15 @@ public class Inventory extends ItemQuery<Item> {
 	 */
 	public Item itemAt(final int index) {
 		final Component comp = component(), itemComponent;
-		if(index > -1 && index < Constants.INVENTORY_SIZE && comp.componentCount() > index && (itemComponent = comp.component(index)).id() > -1 && itemComponent.id() != 6512 && comp.itemStackSize() > -1 ) {
-			return new Item(ctx, itemComponent, itemComponent.id(), itemComponent.itemStackSize());
-		} else {
-			return nil();
+		if(index > -1 && index < Constants.INVENTORY_SIZE) {
+			final int[] ids, stackSizes;
+			if(comp.componentCount() > index && (itemComponent = comp.component(index)).id() > -1 && itemComponent.id() != 6512 && comp.itemStackSize() > -1 ) {
+				return new Item(ctx, itemComponent, itemComponent.id(), itemComponent.itemStackSize());
+			} else if((ids = comp.itemIds()) != null && ids.length > index && ids[index] > -1 && (stackSizes = comp.itemIds()) != null && stackSizes[index] > -1) {
+				return new Item(ctx, comp, index, ids[index], stackSizes[index]);
+			}
 		}
+		return nil();
 	}
 
 	/**
