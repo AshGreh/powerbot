@@ -232,7 +232,7 @@ public class Inventory extends ItemQuery<Item> {
 	 * @return centre point of the specified point
 	 * @throws IndexOutOfBoundsException if x is not between 0 to 3 or y is not between 0 to 6
 	 */
-	public Point centerPoint(int row, int column) {
+	public Point indexCenterPoint(int row, int column) {
 		if(column < 0 || column > 3 || row < 0 || row > 6){
 			throw new IndexOutOfBoundsException();
 		}
@@ -247,14 +247,14 @@ public class Inventory extends ItemQuery<Item> {
 	/**
 	 * Finds the center point of the inventory's index
 	 * @param index 0-(Constants.INVENTORY_SIZE-1), index of inventory
-	 * @return centerPoint of the index param
+	 * @return indexCenterPoint of the index param
 	 * @throws IndexOutOfBoundsException if index is below 0 or above (Constants.INVENTORY_SIZE-1)
 	 */
-	public Point centerPoint(int index){
+	public Point indexCenterPoint(int index){
 		if(index < 0 || index > Constants.INVENTORY_SIZE - 1){
 			throw new IndexOutOfBoundsException();
 		}
-		return centerPoint(inventoryRow(index), inventoryColumn(index));
+		return indexCenterPoint(inventoryRow(index), inventoryColumn(index));
 	}
 	
 	/**
