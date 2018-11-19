@@ -624,10 +624,13 @@ public class Bank extends ItemQuery<Item> {
 	 * X is the relative to whatever the current value of X is.
 	 */
 	public enum Amount {
-
 		X, PLACEHOLDER, ALL_BUT_ONE, ALL, ONE, FIVE(5), TEN(10);
 
 		private final int value;
+		
+		Amount() {
+			value = ordinal() - 3;
+		}
 
 		Amount() {
 			value = ordinal() - 3;

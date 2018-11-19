@@ -55,10 +55,10 @@ public class Game extends ClientAccessor {
 		if (Condition.wait(new Condition.Check() {
 			@Override
 			public boolean poll() {
-				return widget.component(78).visible();
+				return widget.component(67).visible();
 			}
 		}, 100, 10)) {
-			if (!widget.component(lobby ? 70 : 78).interact("Select")) {
+			if (!widget.component(lobby ? 64 : 67).interact("Select")) {
 				return false;
 			}
 		}
@@ -425,7 +425,6 @@ public class Game extends ClientAccessor {
 				{44, 44},
 				{30, 30},
 		};
-
 		for (final Component c : widget.components()) {
 			if (!c.visible()) {
 				continue;
@@ -439,6 +438,8 @@ public class Game extends ClientAccessor {
 				}
 			}
 		}
+
+		ret.add(ctx.widgets.widget(Constants.MOVEMENT_COMPASS_PARENT).component(Constants.MOVEMENT_COMPASS));
 
 		return ret;
 	}

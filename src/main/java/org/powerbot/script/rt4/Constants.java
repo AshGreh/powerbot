@@ -54,7 +54,7 @@ public final class Constants {
 	public static final int GAME_LOADING = 25;
 
 	public static final int LOBBY_WIDGET = 378;
-	public static final int LOBBY_PLAY = 76;
+	public static final int LOBBY_PLAY = 85;
 
 	public static final int LOGOUT_BUTTON_WIDGET = 182;
 	public static final int LOGOUT_BUTTON_COMPONENT = 12;
@@ -131,7 +131,7 @@ public final class Constants {
 
 	public static final int CHAT_INPUT = 162;
 	public static final int CHAT_VIEWPORT = 30;
-	public static final int CHAT_INPUT_TEXT = 38;
+	public static final int CHAT_INPUT_TEXT = 44;
 	public static final int CHAT_WIDGET = 219;
 	public static final int[][] CHAT_CONTINUES = {
 			{229, 2},
