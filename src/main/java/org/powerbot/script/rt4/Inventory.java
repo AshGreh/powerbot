@@ -14,7 +14,6 @@ import java.util.List;
  * Inventory
  */
 public class Inventory extends ItemQuery<Item> {
-	
 	public Inventory(final ClientContext ctx) {
 		super(ctx);
 	}
@@ -85,11 +84,11 @@ public class Inventory extends ItemQuery<Item> {
 	 */
 	public Item itemAt(final int index) {
 		final Component comp = component(), itemComponent;
-		if(index > -1 && index < Constants.INVENTORY_SIZE) {
+		if (index > -1 && index < Constants.INVENTORY_SIZE) {
 			final int[] ids, stackSizes;
-			if(comp.componentCount() > index && (itemComponent = comp.component(index)).id() > -1 && itemComponent.id() != 6512 && comp.itemStackSize() > -1 ) {
+			if (comp.componentCount() > index && (itemComponent = comp.component(index)).id() > -1 && itemComponent.id() != 6512 && comp.itemStackSize() > -1) {
 				return new Item(ctx, itemComponent, itemComponent.id(), itemComponent.itemStackSize());
-			} else if((ids = comp.itemIds()) != null && ids.length > index && ids[index] > -1 && (stackSizes = comp.itemIds()) != null && stackSizes[index] > -1) {
+			} else if ((ids = comp.itemIds()) != null && ids.length > index && ids[index] > -1 && (stackSizes = comp.itemIds()) != null && stackSizes[index] > -1) {
 				return new Item(ctx, comp, index, ids[index], stackSizes[index]);
 			}
 		}
@@ -99,7 +98,7 @@ public class Inventory extends ItemQuery<Item> {
 	/**
 	 * Gives you an item at a certain position.
 	 *
-	 * @param row the row position for the inventory item (0-7)
+	 * @param row    the row position for the inventory item (0-7)
 	 * @param column the column position for the inventory item. (0-3)
 	 * @return the item at the index. If the item index is greater than INVENTORY_SIZE, returns a nil item.
 	 */
@@ -175,7 +174,7 @@ public class Inventory extends ItemQuery<Item> {
 			return true;
 		}
 	}
-	
+
 	/**
 	 * Gives the row of a given index.
 	 * Does not throw an exception if index is out of range.
@@ -202,12 +201,12 @@ public class Inventory extends ItemQuery<Item> {
 	 * Gives the index for a given row and column.
 	 * Does not throw an exception if row/column are out of range.
 	 *
-	 * @param row the row position for the inventory item (0-7)
+	 * @param row    the row position for the inventory item (0-7)
 	 * @param column the column position for the inventory item. (0-3)
 	 * @return the index for the given.
 	 */
 	public int inventoryIndex(int row, int column) {
-		return row*4 + column;
+		return row * 4 + column;
 	}
 
 	/**
@@ -227,21 +226,21 @@ public class Inventory extends ItemQuery<Item> {
 	 * Gives center for a position (row, column).
 	 * Example, item at index 0 is referenced by (0,0) or 6 by (1,2).
 	 *
-	 * @param row the row position for the inventory item (0-7)
+	 * @param row    the row position for the inventory item (0-7)
 	 * @param column the column position for the inventory item. (0-3)
 	 * @return centre point of the specified point
 	 * @throws IndexOutOfBoundsException if x is not between 0 to 3 or y is not between 0 to 6
 	 */
 	public Point indexCenterPoint(int row, int column) {
-		if(column < 0 || column > 3 || row < 0 || row > 6){
+		if (column < 0 || column > 3 || row < 0 || row > 6) {
 			throw new IndexOutOfBoundsException();
 		}
 		//DIFFERENCE BETWEEN CENTER POINTS
-		int xFactor = (column*Constants.INVENTORY_ITEM_X_DIFFERENCE)+18;
-		int yFactor = (row*Constants.INVENTORY_ITEM_Y_DIFFERENCE)+16;
+		int xFactor = (column * Constants.INVENTORY_ITEM_X_DIFFERENCE) + 18;
+		int yFactor = (row * Constants.INVENTORY_ITEM_Y_DIFFERENCE) + 16;
 		//INVENTORY WIDGET POSITION
 		Point inventoryBase = ctx.widgets.component(Constants.INVENTORY_WIDGET, 0).screenPoint();
-		return new Point(inventoryBase.x+xFactor, inventoryBase.y+yFactor);
+		return new Point(inventoryBase.x + xFactor, inventoryBase.y + yFactor);
 	}
 
 	/**
@@ -250,8 +249,8 @@ public class Inventory extends ItemQuery<Item> {
 	 * @return indexCenterPoint of the index param
 	 * @throws IndexOutOfBoundsException if index is below 0 or above (Constants.INVENTORY_SIZE-1)
 	 */
-	public Point indexCenterPoint(int index){
-		if(index < 0 || index > Constants.INVENTORY_SIZE - 1){
+	public Point indexCenterPoint(int index) {
+		if (index < 0 || index > Constants.INVENTORY_SIZE - 1){
 			throw new IndexOutOfBoundsException();
 		}
 		return indexCenterPoint(inventoryRow(index), inventoryColumn(index));
@@ -263,8 +262,8 @@ public class Inventory extends ItemQuery<Item> {
 	 * @return boundingRectangle of the index param
 	 * @throws IndexOutOfBoundsException if index is below 0 or above (Constants.INVENTORY_SIZE-1)
 	 */
-	public Rectangle boundingRect(int index){
-		final int xFactor = Constants.ITEM_WIDTH/2, yFactor = Constants.ITEM_HEIGHT/2;
+	public Rectangle boundingRect(int index) {
+		final int xFactor = Constants.ITEM_WIDTH / 2, yFactor = Constants.ITEM_HEIGHT / 2;
 		Point centerPoint = indexCenterPoint(index);
 		return new Rectangle(centerPoint.x-xFactor, centerPoint.y-yFactor, Constants.ITEM_WIDTH, Constants.ITEM_HEIGHT);
 	}
