@@ -37,6 +37,46 @@ public abstract class Input {
 		speed.set(Math.min(100, Math.max(10, s)));
 		return speed.get();
 	}
+	
+	/**
+	 * Set the relative speed for mouse movements.
+	 * This is a sensitive function and should be used in exceptional circumstances for a short period of time only.
+	 *
+	 * @param s the new speed as a percentage, i.e. {@code 10} is 10x faster, {@code 25} is 4x as fast
+	 *          and {@code 100} is the full speed. Specifying {@code 0} will not change the speed but return the
+	 *          current value instead.
+	 * @return the speed, which can be different to the value requested
+	 */
+	@Deprecated
+	public int speed(final int s) {
+		speed.set(Math.min(100, Math.max(10, s)));
+		return speed.get();
+	}
+	
+	/**
+	 * Returns the current speed.
+	 * This is a sensitive function and should be used in exceptional circumstances for a short period of time only.
+	 *
+	 * @return the speed, which can be different to the value requested
+	 */
+	public int mouseSpeed() {
+		return speed.get();
+	}
+
+	/**
+	 * Set the relative speed for mouse movements.
+	 * This is a sensitive function and should be used in exceptional circumstances for a short period of time only.
+	 *
+	 * @param s the new speed as a percentage, i.e. {@code 10} is 10% of max, {@code 25} is 25% of max
+	 *          and {@code 100} is the full speed. Specifying values below {@code 1} or above {@code 100}
+	 *          will be avoided.
+	 * @return the speed, which can be different to the value requested
+	 */
+	public int mouseSpeed(final float s) {
+		int speedInParisUnits = (int) (1000 / s);
+		speed.set(Math.min(100, Math.max(10, speedInParisUnits)));
+		return mouseSpeed();
+	}
 
 	// TODO: remove boolean return values for input methods
 
