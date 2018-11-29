@@ -55,12 +55,12 @@ public abstract class Input {
 	
 	/**
 	 * Returns the current speed.
-	 * This is a sensitive function and should be used in exceptional circumstances for a short period of time only.
+	 * This is not accurate as values are lost during round off.
 	 *
-	 * @return the speed, which can be different to the value requested
+	 * @return the current speed
 	 */
 	public int mouseSpeed() {
-		return speed.get();
+		return 1000 / speed.get();
 	}
 
 	/**
