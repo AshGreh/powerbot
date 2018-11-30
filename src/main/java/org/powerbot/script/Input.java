@@ -23,20 +23,6 @@ public abstract class Input {
 		spline = new MouseSpline();
 		speed = new AtomicInteger(100);
 	}
-
-	/**
-	 * Set the relative speed for mouse movements.
-	 * This is a sensitive function and should be used in exceptional circumstances for a short period of time only.
-	 *
-	 * @param s the new speed as a percentage, i.e. {@code 10} is 10x faster, {@code 25} is 4x as fast
-	 *          and {@code 100} is the full speed. Specifying {@code 0} will not change the speed but return the
-	 *          current value instead.
-	 * @return the speed, which can be different to the value requested
-	 */
-	public int speed(final int s) {
-		speed.set(Math.min(100, Math.max(10, s)));
-		return speed.get();
-	}
 	
 	/**
 	 * Set the relative speed for mouse movements.
