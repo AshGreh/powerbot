@@ -59,8 +59,10 @@ public abstract class Input {
 	 * @return the speed, which can be different to the value requested
 	 */
 	public int mouseSpeed(final float s) {
-		int speedInParisUnits = (int) (1000 / s);
-		speed.set(Math.min(100, Math.max(10, speedInParisUnits)));
+		if (s > 0 && s <= 100) {
+			int speedInParisUnits = (int) (1000 / s);
+			speed.set(speedInParisUnits);
+		}
 		return mouseSpeed();
 	}
 
