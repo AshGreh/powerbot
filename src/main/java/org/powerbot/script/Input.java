@@ -41,12 +41,12 @@ public abstract class Input {
 	
 	/**
 	 * Returns the current speed.
-	 * This is not accurate as values are lost during round off.
+	 * This may not be accurate as values are lost during round off.
 	 *
 	 * @return the current speed
 	 */
 	public int mouseSpeed() {
-		return 1000 / speed.get();
+		return (int) ((100 - speed.get()) / 0.9);
 	}
 
 	/**
@@ -54,13 +54,13 @@ public abstract class Input {
 	 * This is a sensitive function and should be used in exceptional circumstances for a short period of time only.
 	 *
 	 * @param s the new speed as a percentage, i.e. {@code 10} is 10% of max, {@code 25} is 25% of max
-	 *          and {@code 100} is the full speed. Specifying values below {@code 1} or above {@code 100}
+	 *          and {@code 100} is the full speed. Specifying values below {@code 0} or above {@code 100}
 	 *          will be avoided.
 	 * @return the speed, which can be different to the value requested
 	 */
 	public int mouseSpeed(final float s) {
-		if (s > 0 && s <= 100) {
-			int speedInParisUnits = (int) (1000 / s);
+		if (s >= 0 && s <= 100) {
+			int speedInParisUnits = (int) (100 - (s * 0.9));
 			speed.set(speedInParisUnits);
 		}
 		return mouseSpeed();
