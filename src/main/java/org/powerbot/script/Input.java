@@ -63,7 +63,7 @@ public abstract class Input {
 			int speedInParisUnits = (int) (100 - (s * 0.9));
 			speed.set(speedInParisUnits);
 		} else {
-			throw new RuntimeException("Given speed is out of bounds.");
+			throw new IllegalArgumentException("Given speed is out of bounds.");
 		}
 		return mouseSpeed();
 	}
